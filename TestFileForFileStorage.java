@@ -11,6 +11,7 @@ public class TestFileForFileStorage{
         Accounts user1 = new Accounts("Charbel", "cmarche", "Sourlemon1");
         Accounts user2 = new Accounts("Nicco", "nbarratto", "ballislife3");
         Accounts user3 = new Accounts("Imran", "iahmad", "iloveminions2");
+        Accounts user4 = new Accounts("Adeel", "amudassa", "adeel123")
         
         user3.addFollowing("nbarratto");
         

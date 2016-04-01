@@ -1,9 +1,6 @@
-import java.io.*;
-/**
- * File defines the class Tweet 
- * @author Charbel
- */
-public class Tweet implements Serializable{
+package pikatweet;
+
+public class Tweet {
     /**
      * Class Tweet stores the information on a tweet including its text
      * @param text A string that holds the text of the message to be tweeted.

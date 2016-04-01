@@ -5,7 +5,12 @@
  */
 package pikatweet;
 
+import com.firebase.client.Firebase;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -116,8 +121,6 @@ public class Signup extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 140, 40));
-
-        error.setText("jLabel1");
         getContentPane().add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 10, 380, -1));
 
         p2.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +179,26 @@ public class Signup extends javax.swing.JDialog {
              p2.setText(null);
          }else{
           
+             
+         Firebase ref = new Firebase("https://userinfo240.firebaseio.com/users");
+    
+    
+         Date instant = new Date();//gets time from computer and converts it to a HH:MM format
+        SimpleDateFormat sdf = new SimpleDateFormat( "HH:mm" );        
+        String time = sdf.format( instant );
+    
+
+        Firebase postsRef = ref.child(username);
+
+        Map<String,Object> post = new HashMap<>();
+
+        post.put(time,password);
+
+
+        postsRef.updateChildren(post);    
+             
+             
+             
           
           accountarray.add(nub1);
           

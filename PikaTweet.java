@@ -5,7 +5,7 @@
  */
 package pikatweet;
 
-//import com.apple.eawt.Application;
+import com.apple.eawt.Application;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -20,6 +20,8 @@ public class PikaTweet extends javax.swing.JFrame {
      */
     public PikaTweet() {
         initComponents();
+        tweetbutton.setVisible(false);
+        viewprofile.setVisible(false);
     }
     
 
@@ -47,8 +49,10 @@ public class PikaTweet extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        viewprofile = new javax.swing.JButton();
+        tweetbutton = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,7 +69,6 @@ public class PikaTweet extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("jLabel1");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setOpaque(true);
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -74,7 +77,6 @@ public class PikaTweet extends javax.swing.JFrame {
         jLabel6.setBackground(new java.awt.Color(255, 153, 153));
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("jLabel1");
         jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel6.setOpaque(true);
         jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -83,7 +85,6 @@ public class PikaTweet extends javax.swing.JFrame {
         jLabel5.setBackground(new java.awt.Color(255, 153, 153));
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("jLabel1");
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setOpaque(true);
         jLabel5.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -92,7 +93,6 @@ public class PikaTweet extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(255, 153, 153));
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("jLabel1");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel4.setOpaque(true);
         jLabel4.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
@@ -118,7 +118,7 @@ public class PikaTweet extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, 144, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 144, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pikatweet/poke twitter logo small.png"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
@@ -139,7 +139,7 @@ public class PikaTweet extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 14, 144, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 144, -1));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setOpaque(true);
@@ -149,13 +149,29 @@ public class PikaTweet extends javax.swing.JFrame {
         jLabel11.setOpaque(true);
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 230, 160));
 
-        jLabel10.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel10.setOpaque(true);
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 240));
-
         jLabel12.setBackground(new java.awt.Color(0, 0, 0));
         jLabel12.setOpaque(true);
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 430, 20));
+
+        viewprofile.setText("View Profile");
+        viewprofile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewprofileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(viewprofile, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 144, -1));
+
+        tweetbutton.setText("Tweet");
+        tweetbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tweetbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tweetbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 144, -1));
+
+        jLabel10.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel10.setOpaque(true);
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 240));
 
         jMenu1.setText("Menu");
 
@@ -231,6 +247,14 @@ public class PikaTweet extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void viewprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewprofileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewprofileActionPerformed
+
+    private void tweetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tweetbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tweetbuttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -262,7 +286,6 @@ public class PikaTweet extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PikaTweet().setVisible(true);
-                
             }
         });
     }
@@ -290,5 +313,7 @@ public class PikaTweet extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel tweet1;
+    private javax.swing.JButton tweetbutton;
+    private javax.swing.JButton viewprofile;
     // End of variables declaration//GEN-END:variables
 }

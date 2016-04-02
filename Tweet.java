@@ -1,16 +1,22 @@
 package pikatweet;
 
-public class Tweet {
+import java.io.*;
+import java.util.*;
+/**
+ * File defines the class Tweet 
+ * @author Charbel
+ */
+public class Tweet implements Serializable{
     /**
      * Class Tweet stores the information on a tweet including its text
      * @param text A string that holds the text of the message to be tweeted.
      * @param date A string that holds the date that the tweet was tweeted.
      * @param privat A Boolean that signifies if the tweet is public or private.
      */
-    public Tweet(String text, String date, Boolean privat){
+    public Tweet(String text, Boolean privat){
         Text = text;
-        Date = date;
         Private = privat;
+        now = new Date();
     }
     /**
      * Gets the text of the tweet.
@@ -23,8 +29,8 @@ public class Tweet {
      * Returns the string of the time the tweet was sent.
      * @return String that contains the date in *some format*
      */
-    public String getTimeTweeted(){
-        return Date;
+    public Date getTimeTweeted(){
+        return now;
     }
     /**
      * Returns the privacy level of the tweet. If true then it is private, false then it is public.
@@ -34,6 +40,6 @@ public class Tweet {
         return Private;
     }
     private String Text;
-    private String Date;
     private Boolean Private;
+    private Date now;
 }

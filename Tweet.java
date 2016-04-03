@@ -8,13 +8,14 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     /**
      * Class Tweet stores the information on a tweet including its text
      * @param text A string that holds the text of the message to be tweeted.
-     * @param date A string that holds the date that the tweet was tweeted.
+     * @param usernameOfTweeter A string that holds the date that the tweet was tweeted.
      * @param privat A Boolean that signifies if the tweet is public or private.
      */
-    public Tweet(String text, Boolean privat){
+    public Tweet(String text, Boolean privat, String usernameOfTweeter){
         Text = text;
         Private = privat;
         now = new Date();
+        username = usernameOfTweeter;
     }
     /**
      * Gets the text of the tweet.
@@ -30,6 +31,9 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     public Date getTimeTweeted(){
         return now;
     }
+    public String getUsernameOfTweeter(){
+        return username;
+    }
     /**
      * Returns the privacy level of the tweet. If true then it is private, false then it is public.
      * @return Boolean true for private, false for public.
@@ -37,6 +41,11 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     public Boolean isPrivate(){
         return Private;
     }
+    /**
+     * Sorts tweets by date, using comparable interface.
+     * @param other Type Tweet
+     * @return 
+     */
     public int compareTo(Tweet other){
         if (now.after(other.now) == true){
             return -1;
@@ -49,4 +58,5 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     private String Text;
     private Boolean Private;
     private Date now;
+    private String username;
 }

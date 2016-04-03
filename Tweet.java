@@ -1,12 +1,10 @@
-package pikatweet;
-
 import java.io.*;
 import java.util.*;
 /**
  * File defines the class Tweet 
  * @author Charbel
  */
-public class Tweet implements Serializable{
+public class Tweet implements Serializable, Comparable<Tweet>{
     /**
      * Class Tweet stores the information on a tweet including its text
      * @param text A string that holds the text of the message to be tweeted.
@@ -38,6 +36,15 @@ public class Tweet implements Serializable{
      */
     public Boolean isPrivate(){
         return Private;
+    }
+    public int compareTo(Tweet other){
+        if (now.after(other.now) == true){
+            return -1;
+        }
+        if (now.after(other.now) == false){
+            return 1;
+        }
+        return 0;
     }
     private String Text;
     private Boolean Private;

@@ -15,21 +15,21 @@ public class TestForVisableTweetSort{
         user2.addFollowing("iahmad");
         System.out.println("Charbel make a tweet");
         String tweettextC = in.nextLine();
-        Tweet tweet1 = new Tweet(tweettextC, false);
+        Tweet tweet1 = new Tweet(tweettextC, false, user1.getUsername());
         user1.addNewTweet(tweet1);
         System.out.println("Imran make a tweet");
         String tweettextI1 = in.nextLine();
-        Tweet tweet2 = new Tweet(tweettextI1, false);
+        Tweet tweet2 = new Tweet(tweettextI1, false, user3.getUsername());
         user3.addNewTweet(tweet2);
-        Tweet tweet5 = new Tweet("@nbarratto Nicco a bitch, this is later than imran's written and before the latest one", true);
+        Tweet tweet5 = new Tweet("@nbarratto Nicco a bitch, this is later than imran's written and before the latest one", true, user3.getUsername());
         user3.addNewTweet(tweet5);
-        Tweet tweet4 = new Tweet("This should be the latest but for nicco", false);
+        Tweet tweet4 = new Tweet("This should be the latest but for nicco", false, user2.getUsername());
         user2.addNewTweet(tweet4);
         System.out.println("Imran make tweet private tho");
         String tweettextI2 = in.nextLine();
-        Tweet tweet3 = new Tweet(tweettextI2, true);
+        Tweet tweet3 = new Tweet(tweettextI2, true, user3.getUsername());
         user3.addNewTweet(tweet3);
-        Tweet tweet6 = new Tweet("I think @nbarratto likes some dick", false);
+        Tweet tweet6 = new Tweet("I think @nbarratto likes some dick", false, user1.getUsername());
         user1.addNewTweet(tweet6);
         ArrayList<Accounts> allUsers = new ArrayList(0);
         allUsers.add(user1);
@@ -47,3 +47,4 @@ public class TestForVisableTweetSort{
         }
     }   
 }
+

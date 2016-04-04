@@ -18,6 +18,7 @@ import java.util.Scanner;
  */
 public class ValidateSignIn {
 boolean signedOn;
+Accounts users;
     public void signedon() throws FileNotFoundException, IOException, ClassNotFoundException {
         signedOn = false;
         SignInTest test = new SignInTest();
@@ -35,16 +36,19 @@ boolean signedOn;
 
         //loops through the the array lists to find matched user name and password
         for (int i = 0; i < AllUsers.size(); i++) {
-            Accounts users = AllUsers.get(i);
+            users = AllUsers.get(i);
             if (users.getUsername().equals(username) && users.getPassword().equals(password)) {
                 //System.out.println("match!");
                 signedOn = true;
                 
                 System.out.println(users.getUsername() + users.getPassword() + ": matched");
-            } 
+            } if (!users.getUsername().equals(username) || !users.getPassword().equals(password)) {
+                 System.out.println("Username or password does not match!");
+            }
             
         }
-        System.out.println("Username or password does not match!");
+        
+       
     }
 }
 //            Accounts users = test.searchforProfileUsers(AllUsers, username, password);

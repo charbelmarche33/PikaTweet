@@ -5,12 +5,15 @@
  */
 package pikatweet;
 
-import com.firebase.client.Firebase;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -159,60 +162,90 @@ public class Signup extends javax.swing.JDialog {
     private void unameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_unameActionPerformed
-    ArrayList<account> accountarray = new ArrayList<>();
+    ArrayList<Accounts> Accountsarray = new ArrayList();
+     ArrayList<Accounts> Accountsarraytest = new ArrayList();
+    FileStorage fs = new FileStorage();
+    
+    String checkuname;
+    
+    boolean taken = false;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        try {
+            Accountsarray = fs.retrieveAllUserInfoInUniverse();
+        } catch (IOException ex) {
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+        }
         password = jPasswordField2.getText();
            cpassword = p2.getText();
            name = fullname.getText();
            username = uname.getText();
            
           
-           account nub1 = new account (name, username, password);
+        
+          
+           Accounts nub1 = new Accounts (name, username, password);
          
+          
+          boolean taken2 =  checkusername(username);
+           
+          if (taken2 == false){
            
           
          if (!password.equals( cpassword)){
              error.setText("Passwords do not match!");
              jPasswordField2.setText(null);
              p2.setText(null);
+         
          }else{
-          
-             
-         Firebase ref = new Firebase("https://userinfo240.firebaseio.com/users");
     
-    
-         Date instant = new Date();//gets time from computer and converts it to a HH:MM format
-        SimpleDateFormat sdf = new SimpleDateFormat( "HH:mm" );        
-        String time = sdf.format( instant );
-    
+            try {
+                 
+                Accountsarray.add(nub1);
+                
+               fs.updateAllUsersInfoInUniverse(Accountsarray);
+                
+                for (int i = 0; i < Accountsarray.size(); i++) {
 
-        Firebase postsRef = ref.child(username);
+                    Accounts search = Accountsarray.get(i);
 
-        Map<String,Object> post = new HashMap<>();
-
-        post.put(time,password);
-
-
-        postsRef.updateChildren(post);    
-             
-             
-             
-          
-          accountarray.add(nub1);
-          
-          for (int i = 0; i < accountarray.size(); i++) {//this loops goes for the size of the arraylist
-        account search = accountarray.get(i);//checks the "i" position of the arraylist for the patient name. 
-         
-          error.setText(search.getName() + " " + search.getUsername() + " " + search.getPassword());
-          //setVisible(false);
+                    
+                    // error.setText(search.getName() + " " + search.getUsername() + " " + search.getPassword());
+                    System.out.println(search.getName() + " " + search.getUsername() + " " + search.getPassword());
+                    //setVisible(false);
+                }  
+                
+         } catch (IOException ex) {
+                System.out.println("there is no file");
+            }
          }
-         }
-         
+          } else{
+              System.out.println("Username is taken");
+          }
            
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    public boolean checkusername(String checkuname){
+        taken = false;
+        for (int i = 0; i < Accountsarray.size(); i++) {
+                Accounts accounts = Accountsarray.get(i);
+                
+                if (accounts.getUsername().equals(username)) {
+                
+                 taken = true; 
+                 
+                 return taken;
+                
+             }
+              
+             }
+        
+       
+        return taken;
+    }
+    
     private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField2ActionPerformed
@@ -221,6 +254,10 @@ public class Signup extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_p2ActionPerformed
 
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */

@@ -28,7 +28,7 @@ public class Search {
         ListIterator<Tweet> Iterator = allTweetsThatAreVisable.listIterator();
         while (Iterator.hasNext()) {
             Tweet currentTweet = Iterator.next();
-            if (currentTweet.getTweetText().contains(keyphrase)) {
+            if (currentTweet.getTweetText().toLowerCase().contains(keyphrase.toLowerCase())) {
                 TweetsThatHaveKeyphrase.add(currentTweet);
             }
         }
@@ -51,7 +51,7 @@ public class Search {
         Accounts accountFound = null;
         while (Iterator.hasNext()) {
             Accounts currentProfile = Iterator.next();
-            if (currentProfile.getUsername().contains(username)) {
+            if (currentProfile.getUsername().equals(username)) {
                 accountFound = currentProfile;
             }
         }

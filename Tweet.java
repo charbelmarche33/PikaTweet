@@ -1,3 +1,5 @@
+package pikatweet;
+
 import java.io.*;
 import java.util.*;
 /**
@@ -11,11 +13,18 @@ public class Tweet implements Serializable, Comparable<Tweet>{
      * @param usernameOfTweeter A string that holds the date that the tweet was tweeted.
      * @param privat A Boolean that signifies if the tweet is public or private.
      */
-    public Tweet(String text, Boolean privat, String usernameOfTweeter){
+    
+
+    public Tweet(String text, Boolean privat, String usernameOfTweeter) {
         Text = text;
         Private = privat;
         now = new Date();
         username = usernameOfTweeter;
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    Tweet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     /**
      * Gets the text of the tweet.

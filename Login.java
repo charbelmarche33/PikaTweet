@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 package pikatweet;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +28,13 @@ public class Login extends javax.swing.JDialog {
         initComponents();
     }
 
+    public Login() {
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +46,13 @@ public class Login extends javax.swing.JDialog {
 
         jLabel2 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         label2 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        password = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel1");
 
@@ -48,19 +64,12 @@ public class Login extends javax.swing.JDialog {
         label1.setText(" Login:");
         getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 50, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 200, 40));
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 40));
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 200, 40));
 
         label2.setBackground(new java.awt.Color(255, 0, 0));
         label2.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,11 +77,12 @@ public class Login extends javax.swing.JDialog {
         getContentPane().add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 70, -1));
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 130, -1));
-
-        jLabel1.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel1.setOpaque(true);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 130));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setOpaque(true);
@@ -83,17 +93,107 @@ public class Login extends javax.swing.JDialog {
         jLabel4.setOpaque(true);
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 400, 30));
 
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 40));
+
+        jLabel1.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel1.setOpaque(true);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 130));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+       
+    }//GEN-LAST:event_usernameActionPerformed
+        
+        boolean signedOn = false;
+        ArrayList AllUsers = new ArrayList();
+        FileStorage fs = new FileStorage();
+        String loggedinusername = null;
+        public boolean getLogin(){
+        return signedOn;
+        
+        }
+        PikaTweet pk = new PikaTweet();
+        String uname = null;
+        String pword = null;
+        String name = null;
+        
+        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        signedOn = false;
+        
+        Scanner input = new Scanner(System.in);
+        
+        
+        try {
+            AllUsers = fs.retrieveAllUserInfoInUniverse();
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        
+        uname = username.getText();
+        
+         pword = password.getText();
 
+        //loops through the the array lists to find matched user name and password
+        for (int i = 0; i < AllUsers.size(); i++) {
+            Accounts users = (Accounts) AllUsers.get(i);
+            if (users.getUsername().equals(uname) && users.getPassword().equals(pword)) {
+                //System.out.println("match!");
+                signedOn = true;
+                
+                System.out.println(users.getUsername() + users.getPassword() + ": matched");
+                
+                loggedinusername = uname;
+                setVisible(false);
+               PikaTweetLoggedin pkli = new PikaTweetLoggedin(new javax.swing.JFrame(), true);
+              
+               pkli.setVisible(true);
+                
+                
+                name = users.getName();
+                
+                break;
+            } 
+            
+        }
+        
+        
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+    public void setLoggedinusername(){
+        loggedinusername = null;
+    }
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
+    
+    public String getName(){
+        return uname;
+    }
+    
+    public String getPassword(){
+        return pword;
+    }
+    
+    public String getFullName(){
+        return name; 
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -142,9 +242,13 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private java.awt.Label label1;
     private java.awt.Label label2;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
+    public String getLoggedinusername() {
+        return loggedinusername; //To change body of generated methods, choose Tools | Templates.
+    }
 }

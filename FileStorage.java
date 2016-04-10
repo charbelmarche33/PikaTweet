@@ -1,3 +1,6 @@
+package pikatweet;
+
+import pikatweet.Accounts;
 import java.util.*;
 import java.io.*;
 /**
@@ -11,6 +14,9 @@ public class FileStorage implements Serializable{
      * @throws FileNotFoundException
      * @throws IOException 
      */
+    
+  //  Signup signup = new Signup();
+    
     public void updateAllUsersInfoInUniverse(ArrayList<Accounts> AllUsers) throws FileNotFoundException, IOException{
         FileOutputStream fileOut = new FileOutputStream("AllUsers.dat");
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -19,8 +25,8 @@ public class FileStorage implements Serializable{
         fileOut.close();
     }
     /**
-     * Retrieves information (an array list) of all the user accounts that are available
-     * @return the array list of type account of all the users
+     * Retrieves information (an array list) of all the user Accounts that are available
+     * @return the array list of type Accounts of all the users
      * @throws FileNotFoundException
      * @throws IOException
      * @throws ClassNotFoundException 
@@ -32,5 +38,6 @@ public class FileStorage implements Serializable{
         in.close();
         return AllUsers;
     }
+    
     
 }

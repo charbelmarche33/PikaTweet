@@ -1,5 +1,8 @@
+package pikatweet;
+
 import java.util.ArrayList;
 import java.io.*;
+import pikatweet.Tweet;
 /**
  * File defines accounts class.
  * @author Charbel 
@@ -10,6 +13,12 @@ public class Accounts implements Serializable {
         Password = password;
         Name = name;
     }
+
+    Accounts() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     /**
      * Gets the username of this PokeTrainer.
      * @return String value of the Username
@@ -66,6 +75,8 @@ public class Accounts implements Serializable {
     public void addNewTweet(Tweet tweet){
         PersonalTweets.add(tweet);
     }
+    
+    
     /**
      * Gets the list of people that user follows and that user should be able to see both pubic and private tweets from.
      * @return ArrayList of type String that contains all the usernames of the poketrainers that the user follows.
@@ -83,7 +94,7 @@ public class Accounts implements Serializable {
     private String Username;
     private String Password;
     private String Name;
-    private ArrayList<String> Following = new ArrayList(0);
-    private ArrayList<Tweet> PersonalTweets = new ArrayList(0);
+    private ArrayList<String> Following = new ArrayList();
+    private ArrayList<Tweet> PersonalTweets = new ArrayList();
 }
 

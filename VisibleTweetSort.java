@@ -1,3 +1,5 @@
+package pikatweet;
+
 import java.util.*;
 /**
  * File defines VisableTweetSort class
@@ -36,10 +38,9 @@ public class VisibleTweetSort{
             String currentUsername = followingIter.next();
             for (int i = 0; i < AllUser.size(); i++){
                 if (AllUser.get(i).getUsername().equals(currentUsername))
-                   addPrivateTweetsOfAccountToVisible(AllUser.get(i));
+                   addAllTweetsOfAccountToVisible(AllUser.get(i));
                 }
         }
-        addAllPublicTweetsToVisible(AllUser);
         Collections.sort(allVisibleTweets);
         putAtUsernameTweetsFirst(username);
         return allVisibleTweets;
@@ -88,14 +89,12 @@ public class VisibleTweetSort{
                 }
             } 
     }
-    private void addPrivateTweetsOfAccountToVisible(Accounts current){
+    private void addAllTweetsOfAccountToVisible(Accounts current){
             ArrayList<Tweet> tweet = current.getTweetsMadeByUser();
             ListIterator<Tweet> tweetIter = tweet.listIterator();
             while(tweetIter.hasNext()){
                 Tweet currentTweet = tweetIter.next();
-                if (currentTweet.isPrivate() == true){
-                    allVisibleTweets.add(currentTweet);  
-                }
+                allVisibleTweets.add(currentTweet);  
             }
     }
     ArrayList<Tweet> allVisibleTweets = new ArrayList(0);

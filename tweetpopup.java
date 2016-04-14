@@ -2,6 +2,7 @@ package pikatweet;
 
 
  
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
@@ -15,8 +16,10 @@ public class tweetpopup extends javax.swing.JDialog {
     /**
      * Creates new form tweetpopup
      */
-    public tweetpopup(java.awt.Frame parent, boolean modal){
+    public tweetpopup(java.awt.Frame parent, boolean modal) throws IOException, FileNotFoundException, ClassNotFoundException{
         super(parent, modal);
+        this.username = newOne.readFromFile();
+        y = 0;
         initComponents();
     }
 
@@ -29,6 +32,7 @@ public class tweetpopup extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel7 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
         tweet = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -40,6 +44,7 @@ public class tweetpopup extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 220, -1));
 
         label1.setBackground(new java.awt.Color(255, 0, 0));
         label1.setForeground(new java.awt.Color(255, 255, 255));
@@ -53,13 +58,13 @@ public class tweetpopup extends javax.swing.JDialog {
         });
         getContentPane().add(tweet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 380, 90));
 
-        jButton1.setText("Close");
+        jButton1.setText("Tweet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 130, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 130, -1));
 
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Private");
@@ -77,13 +82,13 @@ public class tweetpopup extends javax.swing.JDialog {
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        jButton2.setText("Tweet");
+        jButton2.setText("Close");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 130, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 130, -1));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("jLabel4");
@@ -96,18 +101,88 @@ public class tweetpopup extends javax.swing.JDialog {
     private void tweetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tweetActionPerformed
 
     }//GEN-LAST:event_tweetActionPerformed
-    
+    Accounts account;
     String username;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    SaveLoggedInUsername newOne = new SaveLoggedInUsername();
+       
+   
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            Scanner input = new Scanner(System.in);                          
+            FileStorage fs = new FileStorage();
+            ArrayList<Accounts> AllUsers = new ArrayList(0);
+            
+        try {
+            AllUsers = fs.retrieveAllUserInfoInUniverse();
+        } catch (IOException ex) {
+            Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+            
+            
+        try {
+            PikaTweetLoggedin dialog = new PikaTweetLoggedin(new javax.swing.JFrame(), false, username);
+        } catch (IOException ex) {
+            Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+
+            for(int i = 0; i < AllUsers.size(); i++){
+                if(AllUsers.get(i).getUsername().equals(username)){
+                    account = AllUsers.get(i);
+                }
+            }            
+            String tweet2 = tweet.getText();
+            
+            if (tweet2.length() > 140) {
+                tweet.setText(null);
+                tweet2 = tweet.getText();
+                y = 1;
+                
+            try {
+                setVisible(false);
+                tweetpopup dialog2 = new tweetpopup(new javax.swing.JFrame(), true);
+                dialog2.jLabel7.setText("You have more than 140 characters");
+                dialog2.setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(PikaTweetLoggedin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PikaTweetLoggedin.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+            }
+            if (y == 0){
+            Tweet nub1 = new Tweet(tweet2, privat, username);
+            account.addNewTweet(nub1);
+            for (int i = 0; i < AllUsers.size(); i++) {
+                if(AllUsers.get(i).getUsername().equals(username)){
+                    AllUsers.remove(i);
+                    AllUsers.add(account);
+                }
+            }
+            try {
+                fs.updateAllUsersInfoInUniverse(AllUsers);
+            } catch (IOException ex) {
+                Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+                setVisible(false);
+
+                }
+    }//GEN-LAST:event_jButton1ActionPerformed
+boolean privat = false;
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()){
+            privat = true;
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
     
     public void setUsername(String uname){
@@ -144,14 +219,20 @@ public class tweetpopup extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tweetpopup dialog = new tweetpopup(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                try {
+                    tweetpopup dialog = new tweetpopup(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(tweetpopup.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -163,7 +244,9 @@ public class tweetpopup extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private java.awt.Label label1;
     private javax.swing.JTextField tweet;
     // End of variables declaration//GEN-END:variables
+int y = 0;
 }

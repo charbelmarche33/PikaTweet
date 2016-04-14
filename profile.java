@@ -2,6 +2,9 @@ package pikatweet;
 
  
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pikatweet.Signup;
 
 /*
@@ -47,15 +50,13 @@ public class profile extends javax.swing.JDialog {
         tweetbutton = new javax.swing.JButton();
         username = new javax.swing.JLabel();
         fullname = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jLabel3.setText("Username");
 
@@ -90,12 +91,12 @@ public class profile extends javax.swing.JDialog {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 210, 70));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pikatweet/arrow left.png"))); // NOI18N
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pikatweet/poke twitter logo small.png"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1));
 
-        jButton2.setText("Sign out");
+        jButton2.setText("Following");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -119,7 +120,7 @@ public class profile extends javax.swing.JDialog {
         jLabel7.setOpaque(true);
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 430, 210));
 
-        tweetbutton.setText("Tweet");
+        tweetbutton.setText("Followers");
         tweetbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tweetbuttonActionPerformed(evt);
@@ -127,18 +128,11 @@ public class profile extends javax.swing.JDialog {
         });
         getContentPane().add(tweetbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 144, -1));
 
-        username.setText("Username");
-        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
+        username.setText(null);
+        getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 70, 20));
 
         fullname.setText("Full Name");
-        getContentPane().add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, -1, -1));
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, 80));
+        getContentPane().add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setOpaque(true);
@@ -152,38 +146,42 @@ public class profile extends javax.swing.JDialog {
         jLabel10.setOpaque(true);
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 240));
 
-        jMenu1.setText("Menu");
+        jMenu2.setText("Menu");
 
-        jMenuItem2.setText("Close Profile");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setText("Tweet");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu2.add(jMenuItem4);
 
-        jMenuItem1.setText("Sign out");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setText("Sign out");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu2.add(jMenuItem5);
 
-        jMenuItem3.setText("Exit");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem3);
+        jMenuBar2.add(jMenu2);
 
-        jMenuBar1.add(jMenu1);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tweetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tweetbuttonActionPerformed
+        try {
+            tweetpopup TweetpopupWindow = new tweetpopup(new javax.swing.JFrame(), true);
+            TweetpopupWindow.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(profile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_tweetbuttonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Signup dialog = new Signup(new javax.swing.JFrame(), true);
@@ -191,28 +189,21 @@ public class profile extends javax.swing.JDialog {
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void tweetbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tweetbuttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tweetbuttonActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        //signout
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-       
-        
-        
-        
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        try {
+            tweetpopup tweetpopupObject = new tweetpopup(new javax.swing.JFrame(), true);
+            tweetpopupObject.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(profile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,12 +263,10 @@ public class profile extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JButton tweetbutton;
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
